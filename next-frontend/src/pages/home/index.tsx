@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useRef, SetStateAction } from 'react';
 import AudioRecorder from '../../AudioRecorder';
+import {playAud} from '../../components/playAud'
 
 const App = () => {
   let [recordOption, setRecordOption] = useState('video');
@@ -60,13 +61,47 @@ const App = () => {
             height: 400px;
             width: 800px;
           }
+          section {
+            padding: 1em;
+            overflow: hidden;
+          }
+          #aurec {
+            float: left;
+          }
+          .card {
+            border: 1px solid #ddd;
+            background: #f4f4f4;
+            padding: 20px;
+            margin-bottom: 10px;
+          }
+          #header {
+            font-size: 30px;
+            margin-bottom: 15px;
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+          }
+          
+
         `}
       </style>
-      <h1>AI Recorder</h1>
-      <div className="button-flex">
-      </div>
-      <TextForm></TextForm>
-      <div>{<AudioRecorder />}</div>
+      <header id='header'>AI Recorder</header>
+      <div className="button-flex"></div>
+      <article className='card'>
+        <TextForm></TextForm>
+      </article>
+      <section id='aurec' className='card'>{<AudioRecorder />}
+      </section>
+      <section id='auup' className='card'>
+        <div>
+          <h2>Upload Audio File</h2>
+          <input type="file" id='audioFileInput' accept='.wav' onInput={playAud} onChange={playAud}/>
+        </div>
+        <div>
+          <audio controls id='audioPlayer' src="audio/mpeg"></audio>
+        </div>
+      </section>
     </div>
   );
 };
